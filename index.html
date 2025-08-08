@@ -3,328 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrador de citas</title>
+    <title>Veterinaria</title>
+    <head>
+<link rel="stylesheet" href="veterinaria.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-      :root {
-            --primary-color: #3B82F6;      /* Azul dominante (60%) */
-            --secondary-color: #F1F5F9;    /* Gris claro (30%) */
-            --accent-color: #EF4444;       /* Rojo de acento (10%) */
-            --success-color: #10B981;      /* Verde para éxito */
-            --warning-color: #F59E0B;      /* Amarillo para advertencia */
-            --text-primary: #1E293B;       /* Texto principal */
-            --text-secondary: #64748B;     /* Texto secundario */
-            --border-color: #E2E8F0;       /* Bordes sutiles */
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #E2E8F0 100%);
-            color: var(--text-primary);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            padding: 2rem 1rem;
-        }
-
-        /* Título principal con mejor tipografía */
-        h2 {
-            font-weight: 700;
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            text-align: center;
-            letter-spacing: -0.025em;
-        }
-
-        /* Barra verde mejorada */
-        .green-bar {
-            height: 6px;
-            background: linear-gradient(90deg, var(--success-color), var(--primary-color));
-            margin-bottom: 2rem;
-            border-radius: 3px;
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
-        }
-
-        /* Controles superiores */
-        .controls-section {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Botones con mejor contraste */
-        .btn {
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            border: none;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-outline-success {
-            background: var(--success-color);
-            color: white;
-            border: 2px solid var(--success-color);
-        }
-
-        .btn-outline-success:hover {
-            background: #059669;
-            border-color: #059669;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-outline-primary {
-            background: var(--primary-color);
-            color: white;
-            border: 2px solid var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background: #2563EB;
-            border-color: #2563EB;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-outline-danger {
-            background: var(--accent-color);
-            color: white;
-            border: 2px solid var(--accent-color);
-        }
-
-        .btn-outline-danger:hover {
-            background: #DC2626;
-            border-color: #DC2626;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-danger {
-            background: var(--accent-color);
-            border: 2px solid var(--accent-color);
-        }
-
-        .btn-danger:hover {
-            background: #DC2626;
-            border-color: #DC2626;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-success {
-            background: var(--success-color);
-            border: 2px solid var(--success-color);
-        }
-
-        .btn-success:hover {
-            background: #059669;
-            border-color: #059669;
-        }
-
-        /* Campos de formulario */
-        .form-control, .form-select {
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        /* Horario de atención */
-        .horario-info {
-            background: linear-gradient(135deg, var(--success-color), var(--primary-color));
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* Tarjetas de citas mejoradas */
-        .card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h5 {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .card p strong {
-            color: var(--text-primary);
-        }
-
-        /* Sombras coherentes */
-        .modal-content {
-            border-radius: 16px;
-            border: none;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .modal-header {
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem;
-        }
-
-        .modal-title {
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .modal-body {
-            padding: 2rem 1.5rem;
-        }
-
-        .modal-footer {
-            border-top: 1px solid var(--border-color);
-            padding: 1.5rem;
-        }
-
-        /* Espacios en blanco mejorados */
-        .mb-3 {
-            margin-bottom: 1.5rem !important;
-        }
-
-        .my-3 {
-            margin-top: 1.5rem !important;
-            margin-bottom: 1.5rem !important;
-        }
-
-        .p-3 {
-            padding: 1.5rem !important;
-        }
-
-        /* Alineación tipográfica */
-        .text-center {
-            text-align: center !important;
-        }
-
-        .d-flex {
-            display: flex !important;
-        }
-
-        .justify-content-between {
-            justify-content: space-between !important;
-        }
-
-        .align-items-center {
-            align-items: center !important;
-        }
-
-        .gap-2 {
-            gap: 0.5rem !important;
-        }
-
-        /* Mejorar la búsqueda */
-        .search-container {
-            position: relative;
-        }
-
-        .search-container::before {
-            content: '🔍';
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            z-index: 1;
-        }
-
-        .search-container .form-control {
-            padding-left: 2.5rem;
-        }
-
-        /* Estados de las citas */
-        .estado-abierta {
-            background: #DCFCE7;
-            color: #15803D;
-        }
-
-        .estado-terminada {
-            background: #DBEAFE;
-            color: #1D4ED8;
-        }
-
-        .estado-anulada {
-            background: #FEE2E2;
-            color: #DC2626;
-        }
-
-        /* Botón de eliminar todas */
-        .delete-all-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-top: 3rem;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Animaciones suaves */
-        * {
-            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-        }
-
-        /* Responsive improvements */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .card {
-                padding: 1rem;
-            }
-        }
-    </style>
+    
 </head>
 <body>
     <div class="container my-4">
@@ -358,30 +41,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formCita">
-                        <input type="text" class="form-control mb-2" id="mascota" placeholder="Nombre Mascota"
-                            required />
-                        <input type="text" class="form-control mb-2" id="propietario" placeholder="Propietario"
-                            required />
-                        <input type="tel" class="form-control mb-2" id="telefono" placeholder="Teléfono" required />
+                    <form id="formCita" novalidate>
+                        <input type="text" class="form-control mb-2" id="mascota" placeholder="Nombre Mascota" />
+                        <input type="text" class="form-control mb-2" id="propietario" placeholder="Propietario" />
+                        <input type="tel" class="form-control mb-2" id="telefono" placeholder="Teléfono" />
                         <div class="row mb-2">
                             <div class="col">
                                 <label>Fecha</label>
-                                <input type="date" class="form-control" id="fecha" required />
+                                <input type="date" class="form-control" id="fecha" min="" />
                             </div>
                             <div class="col">
                                 <label>Hora</label>
-                                <div class="horario-info">
-                                    🕐 Horario de atención: 8:00 AM - 8:00 PM
-                                </div>
-                                <input type="time" class="form-control" id="hora" min="08:00" max="20:00" required />
-                                <div class="invalid-feedback" id="horaError">
-                                    La hora debe estar entre 8:00 AM y 8:00 PM
-                                </div>
+                                <input type="time" class="form-control" id="hora" min="08:00" max="20:00" />
                             </div>
                         </div>
                         <label for="tipoMascota" class="form-label mt-3">Tipo de mascota</label>
-                        <select class="form-select" id="tipoMascota" required>
+                        <select class="form-select" id="tipoMascota">
                             <option value="">-- Selecciona --</option>
                             <option value="Perro">Perro</option>
                             <option value="Gato">Gato</option>
@@ -405,16 +80,54 @@
                             <option value="Anulada">Anulada</option>
                         </select>
                         <textarea class="form-control" id="sintomas" rows="3"
-                            placeholder="Síntomas... (máx 400 caracteres)" maxlength="400" required></textarea>
+                            placeholder="Síntomas... (máx 400 caracteres)" maxlength="400"></textarea>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
                         CERRAR
                     </button>
-                    <button type="submit" class="btn btn-success" form="formCita" id="btnGuardar">
+                    <button type="button" class="btn btn-success" id="btnGuardar">
                         GUARDAR
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para confirmar eliminación -->
+    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmarEliminarMensaje">¿Seguro que quieres eliminar esta cita?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para confirmar eliminación de todas las citas -->
+    <div class="modal fade" id="confirmarEliminarTodasModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás segura de que deseas eliminar todas las citas?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminarTodas">Eliminar todas</button>
                 </div>
             </div>
         </div>
@@ -428,8 +141,46 @@
     </div>
     
     <script>
+        // Función para mostrar alerta personalizada
+        function showCustomAlert(message) {
+            // Crear elementos
+            const backdrop = document.createElement('div');
+            backdrop.className = 'custom-alert-backdrop';
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'custom-alert';
+            alertDiv.innerHTML = `
+                <h5>Oops...</h5>
+                <p>${message}</p>
+                <button class="btn-ok">OK</button>
+            `;
+            
+            // Agregar al body
+            document.body.appendChild(backdrop);
+            document.body.appendChild(alertDiv);
+            
+            // Manejar clic en OK
+            const btnOk = alertDiv.querySelector('.btn-ok');
+            btnOk.addEventListener('click', () => {
+                document.body.removeChild(backdrop);
+                document.body.removeChild(alertDiv);
+            });
+        }
+
+        // Configurar fecha mínima (mañana)
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            // Formatear a YYYY-MM-DD
+            const minDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('fecha').min = minDate;
+        });
+
         const form = document.getElementById("formCita");
         const listaCitas = document.getElementById("listaCitas");
+        const btnGuardar = document.getElementById("btnGuardar");
         const imagenesMascotas = { 
             Perro: "https://static.vecteezy.com/system/resources/previews/008/208/783/non_2x/golden-retriever-dog-cartoon-clipart-illustration-free-vector.jpg",
             Gato: "https://static.vecteezy.com/system/resources/previews/017/319/952/non_2x/cartoon-orange-cat-on-white-background-vector.jpg",
@@ -445,13 +196,50 @@
 
         let citas = JSON.parse(localStorage.getItem("citas")) || [];
         let citaEditando = null;
+        let citaAEliminar = null;
         renderCitas();
 
-        // Validación de horario
+        // Función para validar si un campo tiene contenido válido
+        function validarCampo(campo, nombreCampo) {
+            const valor = campo.value.trim();
+            if (!valor) {
+                showCustomAlert(`El campo ${nombreCampo} no puede estar vacío`);
+                campo.classList.add("is-invalid");
+                return false;
+            }
+            campo.classList.remove("is-invalid");
+            return true;
+        }
+
+        // Función para validar el horario (8am a 8pm)
         function validarHorario(hora) {
-            const horaInicio = "08:00";
-            const horaFin = "20:00";
-            return hora >= horaInicio && hora <= horaFin;
+            const [horas, minutos] = hora.split(':').map(Number);
+            if (horas < 8 || horas >= 20) {
+                showCustomAlert("El horario debe ser entre 8:00 AM y 8:00 PM");
+                return false;
+            }
+            return true;
+        }
+
+        // Función para validar todos los campos requeridos
+        function validarFormulario() {
+            let valido = true;
+            
+            if (!validarCampo(document.getElementById("mascota"), "Nombre Mascota")) valido = false;
+            if (!validarCampo(document.getElementById("propietario"), "Propietario")) valido = false;
+            if (!validarCampo(document.getElementById("telefono"), "Teléfono")) valido = false;
+            
+            const fecha = document.getElementById("fecha");
+            if (!validarCampo(fecha, "Fecha")) valido = false;
+            
+            const hora = document.getElementById("hora");
+            if (!validarCampo(hora, "Hora")) valido = false;
+            else if (!validarHorario(hora.value)) valido = false;
+            
+            if (!validarCampo(document.getElementById("tipoMascota"), "Tipo de mascota")) valido = false;
+            if (!validarCampo(document.getElementById("sintomas"), "Síntomas")) valido = false;
+            
+            return valido;
         }
 
         // Cambiar imagen automáticamente al seleccionar tipo de mascota
@@ -462,35 +250,29 @@
             if (imagenesMascotas[tipo]) {
                 preview.src = imagenesMascotas[tipo];
             } else {
-                preview.src = "https://cdn-icons-png.flaticon.com/512/616/616408.png"; // Icono por defecto
+                preview.src = "https://cdn-icons-png.flaticon.com/512/616/616408.png";
             }
         });
 
-        // Validar hora en tiempo real
-        document.getElementById("hora").addEventListener("change", function() {
-            const hora = this.value;
-            const horaError = document.getElementById("horaError");
-            
-            if (hora && !validarHorario(hora)) {
-                this.classList.add("is-invalid");
-                horaError.style.display = "block";
-            } else {
-                this.classList.remove("is-invalid");
-                horaError.style.display = "none";
-            }
+        // Validar campos en tiempo real
+        document.querySelectorAll("#formCita input, #formCita select, #formCita textarea").forEach(campo => {
+            campo.addEventListener("input", function() {
+                if (this.value.trim()) {
+                    this.classList.remove("is-invalid");
+                }
+            });
         });
 
-        form.addEventListener("submit", (e) => {
+        // Manejar el clic en el botón Guardar
+        btnGuardar.addEventListener("click", (e) => {
             e.preventDefault();
             
-            // Validar horario antes de guardar
-            const hora = form.hora.value;
-            if (!validarHorario(hora)) {
-                alert("La hora debe estar entre 8:00 AM y 8:00 PM");
+            // Validar el formulario antes de continuar
+            if (!validarFormulario()) {
                 return;
             }
-            
-            const tipo = form.tipoMascota.value;
+
+            const tipo = document.getElementById("tipoMascota").value;
             const imagen = imagenesMascotas[tipo] || "https://cdn-icons-png.flaticon.com/512/616/616408.png";
 
             if (citaEditando) {
@@ -499,13 +281,13 @@
                 if (index !== -1) {
                     citas[index] = {
                         id: citaEditando,
-                        mascota: form.mascota.value,
-                        propietario: form.propietario.value,
-                        telefono: form.telefono.value,
-                        fecha: form.fecha.value,
-                        hora: form.hora.value,
-                        estado: form.estado.value,
-                        sintomas: form.sintomas.value,
+                        mascota: document.getElementById("mascota").value.trim(),
+                        propietario: document.getElementById("propietario").value.trim(),
+                        telefono: document.getElementById("telefono").value.trim(),
+                        fecha: document.getElementById("fecha").value,
+                        hora: document.getElementById("hora").value,
+                        estado: document.getElementById("estado").value,
+                        sintomas: document.getElementById("sintomas").value.trim(),
                         tipoMascota: tipo,
                         imagen: imagen,
                     };
@@ -515,13 +297,13 @@
                 // Crear nueva cita
                 const cita = {
                     id: Date.now(),
-                    mascota: form.mascota.value,
-                    propietario: form.propietario.value,
-                    telefono: form.telefono.value,
-                    fecha: form.fecha.value,
-                    hora: form.hora.value,
-                    estado: form.estado.value,
-                    sintomas: form.sintomas.value,
+                    mascota: document.getElementById("mascota").value.trim(),
+                    propietario: document.getElementById("propietario").value.trim(),
+                    telefono: document.getElementById("telefono").value.trim(),
+                    fecha: document.getElementById("fecha").value,
+                    hora: document.getElementById("hora").value,
+                    estado: document.getElementById("estado").value,
+                    sintomas: document.getElementById("sintomas").value.trim(),
                     tipoMascota: tipo,
                     imagen: imagen,
                 };
@@ -530,9 +312,15 @@
             
             localStorage.setItem("citas", JSON.stringify(citas));
             form.reset();
-            bootstrap.Modal.getInstance(
-                document.getElementById("citaModal")
-            ).hide();
+            
+            // Restablecer fecha mínima
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const minDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('fecha').min = minDate;
+            
+            bootstrap.Modal.getInstance(document.getElementById("citaModal")).hide();
             renderCitas();
         });
 
@@ -614,20 +402,37 @@
         }
 
         function eliminarCita(id) {
-            if (confirm("¿Seguro que quieres eliminar esta cita?")) {
-                citas = citas.filter(cita => cita.id !== id);
-                localStorage.setItem("citas", JSON.stringify(citas));
-                renderCitas();
-            }
+            citaAEliminar = id;
+            const cita = citas.find(c => c.id === id);
+            const mensaje = `¿Seguro que quieres eliminar la cita de ${cita.mascota} (${cita.propietario})?`;
+            document.getElementById('confirmarEliminarMensaje').textContent = mensaje;
+            
+            const modal = new bootstrap.Modal(document.getElementById('confirmarEliminarModal'));
+            modal.show();
         }
 
         function eliminarTodasLasCitas() {
-            if (confirm("¿Estás segura de que deseas eliminar todas las citas?")) {
-                citas = [];
-                localStorage.removeItem("citas");
-                renderCitas();
-            }
+            const modal = new bootstrap.Modal(document.getElementById('confirmarEliminarTodasModal'));
+            modal.show();
         }
+
+        // Configurar eventos para los botones de confirmación
+        document.getElementById('btnConfirmarEliminar').addEventListener('click', () => {
+            if (citaAEliminar) {
+                citas = citas.filter(cita => cita.id !== citaAEliminar);
+                localStorage.setItem("citas", JSON.stringify(citas));
+                renderCitas();
+                citaAEliminar = null;
+            }
+            bootstrap.Modal.getInstance(document.getElementById('confirmarEliminarModal')).hide();
+        });
+
+        document.getElementById('btnConfirmarEliminarTodas').addEventListener('click', () => {
+            citas = [];
+            localStorage.removeItem("citas");
+            renderCitas();
+            bootstrap.Modal.getInstance(document.getElementById('confirmarEliminarTodasModal')).hide();
+        });
 
         // Filtrar por estado
         document.getElementById("filtroEstado").addEventListener("change", () => {
@@ -646,9 +451,18 @@
             document.getElementById("modalTitle").textContent = "Guardar nueva cita";
             document.getElementById("btnGuardar").textContent = "GUARDAR";
             document.getElementById("previewIcono").src = "https://cdn-icons-png.flaticon.com/512/616/616408.png";
-            // Limpiar validaciones
-            document.getElementById("hora").classList.remove("is-invalid");
-            document.getElementById("horaError").style.display = "none";
+            
+            // Limpiar clases de validación
+            document.querySelectorAll(".is-invalid").forEach(campo => {
+                campo.classList.remove("is-invalid");
+            });
+            
+            // Restablecer fecha mínima
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const minDate = tomorrow.toISOString().split('T')[0];
+            document.getElementById('fecha').min = minDate;
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
